@@ -12,6 +12,8 @@ OTT_COQ = $(ROOT_NAME)ott.v
 OTT_COQ_DIR = ott-coq-files
 OTT_COQ_BASE = $(OTT_COQ_DIR)/ott_list.v
 
+COQ_FLAGS = -Q $(OTT_COQ_DIR) Ott
+
 all: $(PDF)
 
 %.pdf: %.tex
@@ -30,7 +32,7 @@ $(OTT_COQ_BASE:%.v=%.vo): $(OTT_COQ_BASE)
 	cd $(OTT_COQ_DIR) && make
 
 $(LAST_COQ_FILE:%.v=%.vo): $(COQ_FILES) $(OTT_COQ) $(OTT_COQ_BASE:%.v=%.vo)
-	coqc -I $(OTT_COQ_DIR) $(OTT_COQ) $(COQ_FILES)
+	coqc $(COQ_FLAGS) $(OTT_COQ) $(COQ_FILES)
 
 coq: $(LAST_COQ_FILE:%.v=%.vo)
 
