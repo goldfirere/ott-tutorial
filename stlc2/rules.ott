@@ -1,0 +1,24 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STLC Rules
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+defns
+Jstlc :: '' ::=
+
+defn
+G |- e : t :: :: type :: T_
+  {{ com Well-typed expressions }}
+by
+
+x : t in G
+------------ :: Var
+G |- x : t
+
+G, x:t1 |- e : t2
+----------------- :: Abs
+G |- \x:t1.e : t1 -> t2
+
+G |- e1 : t1 -> t2   G |- e2 : t1
+------------------ :: App
+G |- e1 e2 : t2
+

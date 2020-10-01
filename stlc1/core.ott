@@ -1,0 +1,28 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STLC in Ott
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+metavar var, x, y, z       ::=
+indexvar i, j, k           ::=
+
+grammar
+t :: 't_' ::=
+  | t1 -> t2               ::   :: arrow
+
+e :: 'e_' ::=
+  | x                      ::   :: var
+  | e1 e2                  ::   :: app
+  | \ x : t . e            ::   :: abs
+
+binding :: 'bnd_' ::=
+  | x : t                  ::   :: var
+
+G :: 'ctx_' ::=
+  | empty                  ::   :: nil
+  | G , binding            ::   :: cons
+
+grammar
+formula :: 'formula_' ::=
+  | judgement              ::   :: judgement
+  | binding in G           ::   :: binding
+

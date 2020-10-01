@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STLC in Ott
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+metavar var, x, y, z       ::=
+indexvar i, j, k           ::=
+
+grammar
+type, t {{ tex \tau }} :: 't_' ::=
+  | t1 -> t2               ::   :: arrow
+
+expr, e :: 'e_' ::=
+  | x                      ::   :: var
+  | e1 e2                  ::   :: app
+  | \ x : t . e            ::   :: abs      {{ tex [[\]] [[x]] {:} [[t]].[[e]] }}
+  | ( e )                  :: S :: parens
+  | [ e' / x ] e           :: M :: subst
+
+value, v :: 'v_' ::=
+  | \ x : t . e            ::   :: abs
+
+binding :: 'bnd_' ::=
+  | x : t                  ::   :: var      {{ tex [[x]] {:} [[t]] }}
+
+ctx, G {{ tex \Gamma }} :: 'ctx_' ::=
+  | empty                  ::   :: nil
+  | G , binding            ::   :: cons
+
+grammar
+formula :: 'formula_' ::=
+  | judgement              ::   :: judgement
+  | binding in G           ::   :: binding
+
+terminals :: 'terminals_' ::=
+  | ->                     ::   :: arrow    {{ tex \to }}
+  | \                      ::   :: lambda   {{ tex \lambda }}
+  | |-                     ::   :: entails  {{ tex \vdash }}
+  | in                     ::   :: in       {{ tex \in }}
+  | -->                    ::   :: eval     {{ tex \longrightarrow }}
+
+subrules
+  v <:: e

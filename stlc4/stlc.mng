@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\usepackage{supertabular}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+
+\input{stlc-ott}
+
+\begin{document}
+
+Here is the typing judgment:
+
+\ottdefnJtype{}
+
+Here is the evaluation relation:
+
+\ottdefnJeval{}
+
+Let's talk specifically about the rule for typing $[[\]]$:
+
+\[
+\ottdruleTXXAbs{}
+\]
+
+Now, let's prove something about a type of the form $[[t1 -> t2]]$.
+
+\end{document}

@@ -1,0 +1,14 @@
+\documentclass{article}
+
+\usepackage{supertabular}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+
+\input{stlc-ott}
+
+\begin{document}
+
+\ottall{}
+
+\end{document}

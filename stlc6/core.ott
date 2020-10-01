@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STLC in Ott
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+metavar var, x, y, z       ::=	            {{ coq nat }} {{ coq-equality }}
+indexvar index, i, j, k, n ::=              {{ coq nat }}
+
+grammar
+type, t {{ tex \tau }} :: 't_' ::=
+  | t1 -> t2               ::   :: arrow
+  | </ ti // * // i />     ::   :: tuple
+
+expr, e :: 'e_' ::=
+  | x                      ::   :: var      
+  | e1 e2                  ::   :: app
+  | \ x : t . e            ::   :: abs      {{ tex [[\]] [[x]] {:} [[t]].[[e]] }}
+  | < e1 , .. , en >       ::   :: tuple    
+  | ( e )                  :: S :: parens   {{ coq [[e]] }}
+  | [ e' / x ] e           :: M :: subst    {{ coq (esubst_expr [[e']] [[x]] [[e]]) }}
+
+value, v :: 'v_' ::=
+  | \ x : t . e            ::   :: abs  
+  | < v1 , .. , vn >       ::   :: tuple
+
+binding :: 'bnd_' ::=
+  | x : t                  ::   :: var      {{ tex [[x]] {:} [[t]] }}
+
+ctx, G {{ tex \Gamma }} :: 'ctx_' ::=       {{ coq (list binding) }}
+  | empty                  ::   :: nil      {{ coq nil }}
+  | G , binding            ::   :: cons     {{ coq (cons [[binding]] [[G]]) }}
+
+grammar
+formula :: 'formula_' ::=
+  | judgement              ::   :: judgement
+  | formula1 .. formulan   ::   :: dots
+  | binding in G           ::   :: binding  {{ coq (In [[binding]] [[G]]) }}
+
+terminals :: 'terminals_' ::=
+  | ->                     ::   :: arrow    {{ tex \to }}
+  | \                      ::   :: lambda   {{ tex \lambda }}
+  | |-                     ::   :: entails  {{ tex \vdash }}
+  | in                     ::   :: in       {{ tex \in }}
+  | -->                    ::   :: eval     {{ tex \longrightarrow }}
+  | <                      ::   :: langle   {{ tex \langle }}
+  | >                      ::   :: rangle   {{ tex \rangle }}
+
+subrules
+  v <:: e
+
+substitutions
+  single e x :: esubst

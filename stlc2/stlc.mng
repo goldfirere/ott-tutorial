@@ -1,0 +1,16 @@
+\documentclass{article}
+
+\usepackage{supertabular}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+
+\input{stlc-ott}
+
+\begin{document}
+
+\ottdefntype{}
+
+We wish to prove something about $[[G |- e : t1 -> t2]]$.
+
+\end{document}
