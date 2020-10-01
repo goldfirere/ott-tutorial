@@ -16,7 +16,7 @@ Here is the typing judgment:
 
 Here is the evaluation relation:
 
-\drules[E]{$[[e1 --> e2]]$}{Small-step reduction}{App1,App2,AppAbs}
+\drules[E]{$[[e1 --> e2]]$}{Small-step reduction}{AppOne,AppTwo,AppAbs}
 
 Let's talk specifically about the rule for typing $[[\]]$, \rref{E-Abs}:
 
