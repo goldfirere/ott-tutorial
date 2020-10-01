@@ -9,7 +9,7 @@ defn
 G |- e : t :: :: type :: T_
 by
 
-x : x in G
+x : t in G
 ------------ :: Var
 G |- x : t
 
