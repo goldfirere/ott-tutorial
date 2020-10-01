@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{color}
 \usepackage{hyperref}
+\usepackage{fullpage}
 
 \usepackage[supertabular,implicitLineBreakHack]{ottalt}
 \inputott{stlc-ott.tex}
