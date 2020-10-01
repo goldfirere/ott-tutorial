@@ -32,8 +32,8 @@ Makefile.coq: $(COQ_FILES) $(OTT_COQ)
 
 clean: $(ROOT_NAME).tex
 	latexmk -c $(ROOT_NAME)
-	rm -rf *.glob *.vo
-	rm -rf $(OTT_COQ_DIR)/*.{vo,glob}
+	rm -rf *.glob *.vo *.v.d
+	rm -rf $(OTT_COQ_DIR)/*.{vo,glob,v.d}
 	rm -rf $(OTT_COQ_DIR)/Makefile.coq
 	rm -rf Makefile.coq
 	rm -rf $(ROOT_NAME).tex $(OTT_TEX) $(OTT_COQ)
