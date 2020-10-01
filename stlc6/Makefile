@@ -6,7 +6,6 @@ LAST_COQ_FILE = lemmas.v
 
 OTT_FLAGS=-merge true -tex_wrap false
 
-BLOB = $(ROOT_NAME).blob
 OTT_TEX = $(ROOT_NAME)-ott.tex
 OTT_COQ = $(ROOT_NAME)ott.v
 
@@ -19,15 +18,12 @@ all: $(PDF)
 	latexmk -pdf $<
 
 %.tex: %.mng $(OTT_TEX)
-	ott $(OTT_FLAGS) -tex_filter $< $@ -readsys $(BLOB)
+	ott $(OTT_FLAGS) $(OTT_FILES) -tex_filter $< $@
 
-$(OTT_TEX): $(BLOB)
-	ott $(OTT_FLAGS) -readsys $< -o $@
+$(OTT_TEX): $(OTT_FILES)
+	ott $(OTT_FLAGS) $(OTT_FILES) -o $@
 
-$(BLOB): $(OTT_FILES)
-	ott $(OTT_FLAGS) -writesys $@ $^
-
-$(OTT_COQ): $(BLOB)
+$(OTT_COQ): $(OTT_FILES)
 	ott -coq_expand_list_types false -o $(OTT_COQ) $(OTT_FLAGS) $(OTT_FILES)
 
 $(OTT_COQ_BASE:%.v=%.vo): $(OTT_COQ_BASE)
@@ -40,7 +36,7 @@ coq: $(LAST_COQ_FILE:%.v=%.vo)
 
 clean: $(ROOT_NAME).tex
 	latexmk -c $(ROOT_NAME)
-	rm -rf *.glob *.vo *.blob
+	rm -rf *.glob *.vo
 	rm -rf $(OTT_COQ_DIR)/*{.vo,.glob}
 	rm -rf $(ROOT_NAME).tex $(OTT_TEX) $(OTT_COQ)
 	rm -rf $(PDF)
