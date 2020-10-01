@@ -2,7 +2,6 @@ OTT_FILES = core.ott rules.ott
 ROOT_NAME = stlc
 PDF = stlc.pdf
 COQ_FILES = lemmas.v
-LAST_COQ_FILE = lemmas.v
 
 OTT_FLAGS=-merge true -tex_wrap false
 
@@ -10,9 +9,6 @@ OTT_TEX = $(ROOT_NAME)-ott.tex
 OTT_COQ = $(ROOT_NAME)ott.v
 
 OTT_COQ_DIR = ott-coq-files
-OTT_COQ_BASE = $(OTT_COQ_DIR)/ott_list.v
-
-COQ_FLAGS = -Q $(OTT_COQ_DIR) Ott
 
 all: $(PDF)
 
@@ -28,17 +24,17 @@ $(OTT_TEX): $(OTT_FILES)
 $(OTT_COQ): $(OTT_FILES)
 	ott -coq_expand_list_types false -o $(OTT_COQ) $(OTT_FLAGS) $(OTT_FILES)
 
-$(OTT_COQ_BASE:%.v=%.vo): $(OTT_COQ_BASE)
-	cd $(OTT_COQ_DIR) && make
+coq: Makefile.coq
+	$(MAKE) -f Makefile.coq
 
-$(LAST_COQ_FILE:%.v=%.vo): $(COQ_FILES) $(OTT_COQ) $(OTT_COQ_BASE:%.v=%.vo)
-	coqc $(COQ_FLAGS) $(OTT_COQ) $(COQ_FILES)
-
-coq: $(LAST_COQ_FILE:%.v=%.vo)
+Makefile.coq: $(COQ_FILES) $(OTT_COQ)
+	coq_makefile $(COQ_FILES) $(OTT_COQ) -Q $(OTT_COQ_DIR) Ott -o Makefile.coq
 
 clean: $(ROOT_NAME).tex
 	latexmk -c $(ROOT_NAME)
 	rm -rf *.glob *.vo
-	rm -rf $(OTT_COQ_DIR)/*{.vo,.glob}
+	rm -rf $(OTT_COQ_DIR)/*.{vo,glob}
+	rm -rf $(OTT_COQ_DIR)/Makefile.coq
+	rm -rf Makefile.coq
 	rm -rf $(ROOT_NAME).tex $(OTT_TEX) $(OTT_COQ)
 	rm -rf $(PDF)
