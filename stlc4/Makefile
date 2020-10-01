@@ -30,9 +30,9 @@ coq: Makefile.coq
 Makefile.coq: $(COQ_FILES) $(OTT_COQ)
 	coq_makefile $(COQ_FILES) $(OTT_COQ) -Q $(OTT_COQ_DIR) Ott -o Makefile.coq
 
-clean: $(ROOT_NAME).tex
-	latexmk -c $(ROOT_NAME)
-	rm -rf *.glob *.vo *.v.d
+clean:
+	rm -f *.aux *.log *.bbl *.blg *.ptb
+	rm -f *.fdb_latexmk *.fls *.out
 	rm -rf $(OTT_COQ_DIR)/*.{vo,glob,v.d}
 	rm -rf $(OTT_COQ_DIR)/Makefile.coq
 	rm -rf Makefile.coq
