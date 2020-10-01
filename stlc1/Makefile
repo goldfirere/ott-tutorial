@@ -11,14 +11,13 @@ all: $(PDF)
 %.pdf: %.tex
 	latexmk -pdf $<
 
-%.tex: %.mng $(OTT_TEX)
+%.tex: %.mng $(OTT_TEX) $(OTT_FILES)
 	ott $(OTT_FLAGS) $(OTT_FILES) -tex_filter $< $@
 
-$(OTT_TEX): $(BLOB)
+$(OTT_TEX): $(OTT_FILES)
 	ott $(OTT_FLAGS) $(OTT_FILES) -o $@
 
 clean: $(ROOT_NAME).tex
 	latexmk -c $(ROOT_NAME)
-	rm -rf *.blob
 	rm -rf $(ROOT_NAME).tex $(OTT_TEX)
 	rm -rf $(PDF)
