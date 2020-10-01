@@ -25,7 +25,6 @@ G {{ tex \Gamma }} :: 'ctx_' ::=
 grammar
 formula :: 'formula_' ::=
   | judgement              ::   :: judgement
-  | formula1 .. formulai   ::   :: dots
   | binding in G           ::   :: binding
 
 terminals :: 'terminals_' ::=

@@ -7,6 +7,7 @@ Jstlc :: '' ::=
 
 defn
 G |- e : t :: :: Jtype :: T_
+  {{ com Well-typed expressions }}
 by
 
 x : t in G
@@ -24,6 +25,7 @@ G |- e1 e2 : t2
 
 defn
 e --> e' :: :: Jeval :: E_
+  {{ com Small-step reduction }}
 by
 
 e --> e'
