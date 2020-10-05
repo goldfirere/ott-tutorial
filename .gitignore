@@ -5,3 +5,5 @@
 
 Makefile.coq
 *.v.d
+*.glob
+*.vo

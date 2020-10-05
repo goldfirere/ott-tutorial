@@ -9,6 +9,8 @@ OTT_TEX = $(ROOT_NAME)-ott.tex
 OTT_COQ = $(ROOT_NAME)ott.v
 
 OTT_COQ_DIR = ott-coq-files
+OTT_COQ_FILES = $(wildcard $(OTT_COQ_DIR)/*.v)
+
 
 all: $(PDF)
 
@@ -24,11 +26,14 @@ $(OTT_TEX): $(OTT_FILES)
 $(OTT_COQ): $(OTT_FILES)
 	ott -coq_expand_list_types false -o $(OTT_COQ) $(OTT_FLAGS) $(OTT_FILES)
 
-coq: Makefile.coq
+$(OTT_COQ_FILES:%.v=%%vo) $(OTT_COQ_DIR)/Makefile%coq: $(OTT_COQ_DIR)/_CoqProject $(OTT_COQ_FILES)
+	cd $(OTT_COQ_DIR) && make
+
+coq: Makefile.coq $(OTT_COQ_FILES:%.v=%.vo)
 	$(MAKE) -f Makefile.coq
 
 Makefile.coq: $(COQ_FILES) $(OTT_COQ)
-	coq_makefile $(COQ_FILES) $(OTT_COQ) -Q $(OTT_COQ_DIR) Ott -o Makefile.coq
+	coq_makefile $(COQ_FILES) $(OTT_COQ) -arg -Q -arg ./$(OTT_COQ_DIR) -arg Ott -o Makefile.coq
 
 clean:
 	rm -f *.aux *.log *.bbl *.blg *.ptb
@@ -36,5 +41,6 @@ clean:
 	rm -rf $(OTT_COQ_DIR)/*.{vo,glob,v.d}
 	rm -rf $(OTT_COQ_DIR)/Makefile.coq
 	rm -rf Makefile.coq
+	rm -rf *.v.d *.vo *.glob
 	rm -rf $(ROOT_NAME).tex $(OTT_TEX) $(OTT_COQ)
 	rm -rf $(PDF)
