@@ -19,5 +19,7 @@ Lemma canonical_forms_tuple : forall v tlist,
 Proof.
   intros v tlist Hval Htype. destruct v; simpl in Hval;
       inversion Hval; inversion Htype.
-      Admitted.
+      remove cruft from e_t_list as es, ts.
+      exists es. reflexivity.
+Qed.
     
