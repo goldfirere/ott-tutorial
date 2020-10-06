@@ -10,14 +10,10 @@ a way to progress toward mastery of the tool.
 
 * stlc2: Basic tex homs to produce moderately-prettified output
 
-* stlc3: More tex homs, along with some basic setup for Coq extraction
-       The Makefile supports 'make coq', but the make intentionally fails --
-       you can try to fix the problems and see if you get all the way to
-       stlc4. This version also is the first to define values as a subgrammar
-       of expressions.
+* stlc3: More tex homs, and operational semantics.
 
-* stlc4: Working extraction into Coq, along with the one clause of the
-       canonical forms lemma proved. This version demonstrates the use of
+* stlc4: Use of the `ottalt` package, and working extraction into Coq.
+       This version demonstrates the use of
        the 'substitutions' ott directive to generate a substitution function
        over grammar elements.
 
@@ -26,5 +22,3 @@ a way to progress toward mastery of the tool.
        proof of the canonical form for tuples. The cruft that Coq extraction
        generates can be removed using code in cruft.v.
 
-* stlc6: Full proof of the second clause of canonical forms, using the Ltac
-       notation provided in cruft.v.
